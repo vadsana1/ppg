@@ -72,5 +72,8 @@ Allow users to fill out thesis details (title, major, advisors, students, etc.) 
 ## 7. License
 Feel free to modify or distribute this code. Original libraries used (`pdf-lib`, `fontkit`) have their own licenses—be sure to check them if you plan to use this in production.
 
+## Screenshot of the website
+![Screenshot](img/img_screenshot.png)
+
 
 ## This project was initiated by Dr. Savath Saypadith

@@ -98,7 +98,7 @@
           <label for="majorLao">Major (Lao):</label>
           <select id="majorLao" required>
             <option value="ວິສະວະກຳຄອມພິວເຕີ">ວິສະວະກຳຄອມພິວເຕີ</option>
-            <option value="ເຕັກໂນໂລຊີ ຂໍ້ມູນຂ່າວສານ">
+            <option value="ເຕັກໂນໂລຊີຂໍ້ມູນຂ່າວສານ">
               ເຕັກໂນໂລຊີຂໍ້ມູນຂ່າວສານ
             </option>
           </select>
@@ -279,8 +279,9 @@
         const centerX = width / 2;
 
         // (A) Draw the logo in the top-center
-        const imgWidth = 70;
+        const imgWidth = 120;
         const imgHeight = (pngImage.height / pngImage.width) * imgWidth;
+        const maxTextWidth = 480;
         page.drawImage(pngImage, {
           x: centerX - imgWidth / 2,
           y: yPos - imgHeight,
@@ -302,6 +303,63 @@
           yPos -= fontSize + 10;
         }
 
+        function drawCenteredMultilineText(
+          text,
+          fontSize,
+          font,
+          page,
+          centerX,
+          yPos,
+          maxWidth,
+          colorFunc = null
+        ) {
+          // Split text into words
+          const words = text.split(" ");
+          const lines = [];
+          let currentLine = "";
+
+          // 1) Word-wrapping logic
+          for (let i = 0; i < words.length; i++) {
+            const word = words[i];
+            const testLine = currentLine ? currentLine + " " + word : word;
+            const testLineWidth = font.widthOfTextAtSize(testLine, fontSize);
+
+            if (testLineWidth > maxWidth && i > 0) {
+              // Push the current line, then start a new line with the word
+              lines.push(currentLine);
+              currentLine = word;
+            } else {
+              // Keep adding words to the current line
+              currentLine = testLine;
+            }
+          }
+          // Push any leftover content in currentLine
+          if (currentLine) {
+            lines.push(currentLine);
+          }
+
+          // 2) Draw each line centered
+          const lineHeight = fontSize + 10; // You can adjust spacing here
+          lines.forEach((line) => {
+            // Measure the actual width of this line
+            const lineWidth = font.widthOfTextAtSize(line, fontSize);
+
+            page.drawText(line, {
+              x: centerX - lineWidth / 2,
+              y: yPos,
+              size: fontSize,
+              font,
+              color: colorFunc || { r: 0, g: 0, b: 0 }, // default is black if not provided
+            });
+
+            // Move up for next line
+            yPos -= lineHeight;
+          });
+
+          // Return the updated y-position so you can keep track if you need more text
+          return yPos;
+        }
+
         // (B) Draw the Thesis Title (Lao)
         drawCenteredText(
           "ບົດໂຄງການຈົບຊັ້ນລະດັບປະລິນຍາຕີວິສະວະກຳສາດ",
@@ -314,14 +372,26 @@
 
         // (D) Major (Lao)
         drawCenteredText("ສາຂາ " + majorLao, laoFont, 14);
-        yPos -= 30;
-        drawCenteredText(titleLao, laoFont, 16);
+        yPos -= 25;
+
+        
+        // drawCenteredText(titleLao, laoFont, 16);
+        drawCenteredMultilineText(
+          titleLao,
+          14,
+          laoFont, // your embedded Lao font
+          page,
+          centerX,
+          yPos,
+          maxTextWidth,
+          rgb(0, 0, 0) // optional color
+        );
 
         // (E) Major (English)
         // drawCenteredText(majorEn, laoFont, 12);
 
         // Move down a bit
-        yPos -= 40;
+        yPos -= 60;
 
         // (F) Students
         const labelFontSize = 12;
@@ -333,11 +403,11 @@
         students.forEach((st) => {
           const line = `${st.la}`;
           page.drawText(line, {
-          x: 220,
-          y: yPos,
-          size: 12,
-          font: laoFont,
-        });
+            x: 220,
+            y: yPos,
+            size: 12,
+            font: laoFont,
+          });
           yPos -= 20;
         });
         yPos -= 30;
