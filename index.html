@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Thesis Cover (pdf-lib)</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        display: flex; /* two columns */
+        height: 100vh;
+      }
+      /* Left column: Form */
+      #form-container {
+        width: 50%;
+        border-right: 1px solid #ccc;
+        padding: 20px;
+        overflow: auto;
+      }
+      /* Right column: PDF Preview */
+      #pdf-container {
+        width: 50%;
+        padding: 20px;
+        overflow: auto;
+      }
+      h1,
+      h2,
+      h3 {
+        margin-top: 0;
+      }
+      .field {
+        margin-bottom: 10px;
+      }
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 6px;
+        margin-bottom: 5px;
+        box-sizing: border-box;
+      }
+      .students-wrapper {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      .student-fieldset {
+        margin-bottom: 8px;
+        border-bottom: 1px dashed #ddd;
+        padding-bottom: 6px;
+      }
+      button {
+        padding: 8px 16px;
+        margin: 5px 0;
+        cursor: pointer;
+      }
+      iframe {
+        width: 100%;
+        height: 90vh;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- LEFT COLUMN: FORM -->
+    <div id="form-container">
+      <h1>CEIT - Thesis Cover Generator</h1>
+
+      <form id="coverForm" onsubmit="return false;">
+        <!-- Thesis Title (Lao) -->
+        <div class="field">
+          <label for="titleLao">Thesis Title (Lao):</label>
+          <input
+            type="text"
+            id="titleLao"
+            placeholder="ຊື່ຫົວຂໍ້ບົດວິທະຍານິພົນ (ລາວ)"
+            required
+          />
+        </div>
+
+        <!-- Thesis Title (English) -->
+        <div class="field">
+          <label for="titleEn">Thesis Title (English):</label>
+          <input
+            type="text"
+            id="titleEn"
+            placeholder="Thesis Title in English"
+            required
+          />
+        </div>
+
+        <!-- Major (Lao) -->
+        <div class="field">
+          <label for="majorLao">Major (Lao):</label>
+          <select id="majorLao" required>
+            <option value="ວິສະວະກຳຄອມພິວເຕີ">ວິສະວະກຳຄອມພິວເຕີ</option>
+            <option value="ເຕັກໂນໂລຊີ ຂໍ້ມູນຂ່າວສານ">
+              ເຕັກໂນໂລຊີຂໍ້ມູນຂ່າວສານ
+            </option>
+          </select>
+        </div>
+
+        <!-- Major (English) -->
+        <div class="field">
+          <label for="majorEn">Major (English):</label>
+          <select id="majorEn" required>
+            <option value="Computer Engineering">Computer Engineering</option>
+            <option value="Information Technology">
+              Information Technology
+            </option>
+          </select>
+        </div>
+
+        <!-- Students -->
+        <div class="students-wrapper">
+          <h3>Students</h3>
+          <div id="studentsArea"></div>
+          <button type="button" onclick="addStudent()">Add More Student</button>
+        </div>
+
+        <!-- Advisor Name (Lao) -->
+        <div class="field">
+          <label for="advisorLao">Advisor Name (Lao):</label>
+          <select id="advisorLao" required>
+            <option value="ຮສ. ປທ. ທາ ບຸນທັນ">ຮສ. ປທ. ທາ ບຸນທັນ</option>
+            <option value="ປອ. ວິມົນທາ ຂຽວວົງພະຈັນ">
+              ປອ. ວິມົນທາ ຂຽວວົງພະຈັນ
+            </option>
+            <option value="ປອ. ສະຫວາດ ໄຊປະດິດ">ປອ. ສະຫວາດ ໄຊປະດິດ</option>
+          </select>
+        </div>
+
+        <!-- Advisor Name (English) -->
+        <div class="field">
+          <label for="advisorEn">Advisor Name (English):</label>
+          <select id="advisorEn" required>
+            <option value="Tha Bounthanh, M.Eng">Tha Bounthanh, M.Eng</option>
+            <option value="Dr. Vimontha Khieovongphachanh">
+              Dr. Vimontha Khieovongphachanh
+            </option>
+            <option value="Dr. Savath Saypadith">Dr. Savath Saypadith</option>
+          </select>
+        </div>
+
+        <!-- Co-Advisor Name (Lao) -->
+        <div class="field">
+          <label for="coAdvisorLao">Co-Advisor Name (Lao):</label>
+          <select id="coAdvisorLao">
+            <option value="">-- None --</option>
+            <option value="ຮສ. ປທ. ທາ ບຸນທັນ">ຮສ. ປທ. ທາ ບຸນທັນ</option>
+            <option value="ປອ. ວິມົນທາ ຂຽວວົງພະຈັນ">
+              ປອ. ວິມົນທາ ຂຽວວົງພະຈັນ
+            </option>
+            <option value="ປອ. ສະຫວາດ ໄຊປະດິດ">ປອ. ສະຫວາດ ໄຊປະດິດ</option>
+          </select>
+        </div>
+
+        <!-- Co-Advisor Name (English) -->
+        <div class="field">
+          <label for="coAdvisorEn">Co-Advisor Name (English):</label>
+          <select id="coAdvisorEn">
+            <option value="">-- None --</option>
+            <option value="Tha Bounthanh, M.Eng">Tha Bounthanh, M.Eng</option>
+            <option value="Dr. Vimontha Khieovongphachanh">
+              Dr. Vimontha Khieovongphachanh
+            </option>
+            <option value="Dr. Savath Saypadith">Dr. Savath Saypadith</option>
+          </select>
+        </div>
+
+        <!-- Academic Year -->
+        <div class="field">
+          <label for="academicYear">Academic Year:</label>
+          <input
+            type="text"
+            id="academicYear"
+            placeholder="e.g. 2023-2024"
+            required
+          />
+        </div>
+
+        <button type="button" onclick="generatePDF()">Generate PDF</button>
+      </form>
+    </div>
+
+    <!-- RIGHT COLUMN: PDF PREVIEW -->
+    <div id="pdf-container">
+      <h2>Preview</h2>
+      <iframe id="pdfPreview"></iframe>
+    </div>
+
+    <!-- 1) pdf-lib library from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@pdf-lib/fontkit/dist/fontkit.umd.js"></script>
+
+    <!-- 2) Lao font data (base64) -->
+    <script src="./font_base64.js"></script>
+
+    <!-- 3) Logo data (base64) -->
+    <script src="./logo_base64.js"></script>
+
+    <script>
+      // We'll reference PDFLib as a global from window.pdfLib or PDFLib
+      const { PDFDocument, rgb } = PDFLib; // or window.pdfLib
+      const fontkit = window.fontkit;
+
+      let studentCount = 0;
+
+      function addStudent() {
+        studentCount++;
+        const studentsArea = document.getElementById("studentsArea");
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "student-fieldset";
+        wrapper.innerHTML = `
+      <label>Student Name (Lao):</label>
+      <input type="text" id="studentLao_${studentCount}" placeholder="ຊື່ນັກສຶກສາ (ລາວ)" required />
+      <label>Student Name (English):</label>
+      <input type="text" id="studentEn_${studentCount}" placeholder="Student Name (English)" required />
+    `;
+        studentsArea.appendChild(wrapper);
+      }
+
+      // Add one student by default on page load
+      window.onload = () => {
+        addStudent();
+      };
+
+      async function generatePDF() {
+        // 1) Gather form data
+        const titleLao = document.getElementById("titleLao").value.trim();
+        const titleEn = document.getElementById("titleEn").value.trim();
+        const majorLao = document.getElementById("majorLao").value.trim();
+        const majorEn = document.getElementById("majorEn").value.trim();
+        const advisorLao = document.getElementById("advisorLao").value.trim();
+        const advisorEn = document.getElementById("advisorEn").value.trim();
+        const coAdvisorLao = document
+          .getElementById("coAdvisorLao")
+          .value.trim();
+        const coAdvisorEn = document.getElementById("coAdvisorEn").value.trim();
+        const academicYear = document
+          .getElementById("academicYear")
+          .value.trim();
+
+        let students = [];
+        for (let i = 1; i <= studentCount; i++) {
+          const stLao = document.getElementById("studentLao_" + i).value.trim();
+          const stEn = document.getElementById("studentEn_" + i).value.trim();
+          if (stLao || stEn) {
+            students.push({ la: stLao, en: stEn });
+          }
+        }
+
+        // 2) Create a new PDFDocument
+        const pdfDoc = await PDFDocument.create();
+        pdfDoc.registerFontkit(fontkit);
+
+        // 3) Embed the Lao font (from window.LAO_FONT_BASE64 in font_base64.js)
+        //    We must decode base64 -> Uint8Array
+        const laoFontBytes = base64ToUint8Array(window.LAO_FONT_BASE64);
+        const laoFont = await pdfDoc.embedFont(laoFontBytes);
+
+        // 4) Embed the PNG logo (from window.LOGO_BASE64 in logo_base64.js)
+        const logoBytes = base64ToUint8Array(
+          window.LOGO_BASE64.replace("data:image/png;base64,", "")
+        );
+        const pngImage = await pdfDoc.embedPng(logoBytes);
+
+        // 5) Add a page
+        const page = pdfDoc.addPage();
+        const { width, height } = page.getSize();
+
+        // Let's define some basic positions
+        let yPos = height - 100; // start from top (pdf-lib uses bottom-left origin by default)
+        const centerX = width / 2;
+
+        // (A) Draw the logo in the top-center
+        const imgWidth = 70;
+        const imgHeight = (pngImage.height / pngImage.width) * imgWidth;
+        page.drawImage(pngImage, {
+          x: centerX - imgWidth / 2,
+          y: yPos - imgHeight,
+          width: imgWidth,
+          height: imgHeight,
+        });
+        yPos -= imgHeight + 30;
+
+        // A small helper function to draw centered text
+        function drawCenteredText(txt, font, fontSize) {
+          const textWidth = font.widthOfTextAtSize(txt, fontSize);
+          page.drawText(txt, {
+            x: centerX - textWidth / 2,
+            y: yPos,
+            size: fontSize,
+            font,
+            color: rgb(0, 0, 0),
+          });
+          yPos -= fontSize + 10;
+        }
+
+        // (B) Draw the Thesis Title (Lao)
+        drawCenteredText(
+          "ບົດໂຄງການຈົບຊັ້ນລະດັບປະລິນຍາຕີວິສະວະກຳສາດ",
+          laoFont,
+          18
+        );
+
+        // (C) Thesis Title (English)
+        // drawCenteredText(titleEn, laoFont, 12);
+
+        // (D) Major (Lao)
+        drawCenteredText("ສາຂາ " + majorLao, laoFont, 14);
+        yPos -= 30;
+        drawCenteredText(titleLao, laoFont, 16);
+
+        // (E) Major (English)
+        // drawCenteredText(majorEn, laoFont, 12);
+
+        // Move down a bit
+        yPos -= 40;
+
+        // (F) Students
+        const labelFontSize = 12;
+        const textFontSize = 12;
+
+        // We'll left-align from a margin
+        const leftMargin = 50;
+
+        students.forEach((st) => {
+          const line = `${st.la}`;
+          page.drawText(line, {
+          x: 220,
+          y: yPos,
+          size: 12,
+          font: laoFont,
+        });
+          yPos -= 20;
+        });
+        yPos -= 30;
+
+        // Advisor
+        page.drawText("ອາຈານທີ່ປຶກສາ:", {
+          x: 180,
+          y: yPos,
+          size: 12,
+          font: laoFont,
+        });
+        yPos -= labelFontSize + 10;
+
+        if (advisorLao) {
+          page.drawText(advisorLao, {
+            x: 220,
+            y: yPos,
+            size: 12,
+            font: laoFont,
+          });
+          yPos -= 20;
+        }
+        // if(advisorEn) {
+        //   page.drawText(`(English) ${advisorEn}`, {
+        //     x: leftMargin + 10,
+        //     y: yPos,
+        //     size: textFontSize,
+        //     font: laoFont,
+        //   });
+        //   yPos -= (textFontSize + 10);
+        // }
+
+        // Co-Advisor
+        if (coAdvisorLao || coAdvisorEn) {
+          // page.drawText("Co-Advisor:", {
+          //   x: leftMargin,
+          //   y: yPos,
+          //   size: labelFontSize,
+          //   font: laoFont
+          // });
+          // yPos -= (labelFontSize + 5);
+
+          if (coAdvisorLao) {
+            page.drawText(coAdvisorLao, {
+              x: 220,
+              y: yPos,
+              size: 12,
+              font: laoFont,
+            });
+          }
+          // if(coAdvisorEn) {
+          //   page.drawText(`(English) ${coAdvisorEn}`, {
+          //     x: leftMargin + 10,
+          //     y: yPos,
+          //     size: textFontSize,
+          //     font: laoFont,
+          //   });
+          //   yPos -= (textFontSize + 10);
+          // }
+        }
+
+        // Academic Year (centered at bottom)
+        const bottomText = `ສົກສຶກສາ ${academicYear}`;
+        const bottomTextWidth = laoFont.widthOfTextAtSize(bottomText, 12);
+        page.drawText(bottomText, {
+          x: (width - bottomTextWidth) / 2,
+          y: 50,
+          size: 12,
+          font: laoFont,
+        });
+
+        pdfDoc.addPage();
+
+        // 6) Serialize to Uint8Array
+        const pdfBytes = await pdfDoc.save();
+
+        // 7) Convert to Blob URL for preview
+        const blob = new Blob([pdfBytes], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+
+        document.getElementById("pdfPreview").src = url;
+      }
+
+      // Helper: decode base64 to Uint8Array
+      function base64ToUint8Array(base64) {
+        const binaryString = atob(base64);
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+        return bytes;
+      }
+    </script>
+    <!-- This project was initiated by Dr. Savath Saypadith -->
+  </body>
+</html>
