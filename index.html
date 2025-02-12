@@ -22,7 +22,9 @@
         width: 50%;
         padding: 20px;
         overflow: auto;
+        
       }
+      
       h1,
       h2,
       h3 {
@@ -63,6 +65,7 @@
         height: 90vh;
         border: none;
       }
+      
     </style>
   </head>
   <body>
@@ -73,10 +76,12 @@
       <form id="coverForm" onsubmit="return false;">
         <!-- Thesis Title (Lao) -->
         <div class="field">
+          <!-- TODO: change the value to empty after development -->
           <label for="titleLao">Thesis Title (Lao):</label>
           <input
             type="text"
             id="titleLao"
+            value="ພັດທະນາapplicationແຈ້ງເຫດສຸກເສີນ"
             placeholder="ຊື່ຫົວຂໍ້ບົດວິທະຍານິພົນ (ລາວ)"
             required
           />
@@ -85,12 +90,31 @@
         <!-- Thesis Title (English) -->
         <div class="field">
           <label for="titleEn">Thesis Title (English):</label>
+          <!-- TODO: change the value to empty after development -->
           <input
             type="text"
             id="titleEn"
+            value="Develop An Emergency Alert Application" 
             placeholder="Thesis Title in English"
             required
           />
+        </div>
+
+        <!-- Faculty (Lao) -->
+        <div class="field">
+          <label for="FacultyLao">Faculty (Lao):</label>
+          <select id="FacultyLao" required>
+            <option value="ວິສະວະກຳສາດ">ວິສະວະກຳສາດ</option>
+            
+          </select>
+        </div>
+
+        <!-- Department(Lao) -->
+        <div class="field">
+          <label for="DepartmentLao">Department (Lao):</label>
+          <select id="DepartmentLao" required>
+            <option value="ພາກວິຊາວິສະວະກຳຄອມພິວເຕີ">ພາກວິຊາວິສະວະກຳຄອມພິວເຕີ</option>
+          </select>
         </div>
 
         <!-- Major (Lao) -->
@@ -101,6 +125,15 @@
             <option value="ເຕັກໂນໂລຊີຂໍ້ມູນຂ່າວສານ">
               ເຕັກໂນໂລຊີຂໍ້ມູນຂ່າວສານ
             </option>
+          </select>
+        </div>
+
+        <!-- University (Lao) -->
+        <div class="field">
+          <label for="UniversityLao">University(Lao):</label>
+          <select id="UniversityLao" required>
+            <option value="ສຸພານຸວົງ">ສຸພານຸວົງ</option>
+            
           </select>
         </div>
 
@@ -131,6 +164,7 @@
               ປອ. ວິມົນທາ ຂຽວວົງພະຈັນ
             </option>
             <option value="ປອ. ສະຫວາດ ໄຊປະດິດ">ປອ. ສະຫວາດ ໄຊປະດິດ</option>
+            <option value="ປອ. ວິນັດ ເມກທະນາວັນ">ປອ. ວິນັດ ເມກທະນາວັນ</option>
           </select>
         </div>
 
@@ -143,6 +177,7 @@
               Dr. Vimontha Khieovongphachanh
             </option>
             <option value="Dr. Savath Saypadith">Dr. Savath Saypadith</option>
+            <option value="Dr. vinath Mekthanavanh">Dr. Savath Saypadith</option>
           </select>
         </div>
 
@@ -150,25 +185,27 @@
         <div class="field">
           <label for="coAdvisorLao">Co-Advisor Name (Lao):</label>
           <select id="coAdvisorLao">
-            <option value="">-- None --</option>
+            <option value="ປອ. ວິນັດ ເມກທະນາວັນ">ປອ. ວິນັດ ເມກທະນາວັນ</option>
             <option value="ຮສ. ປທ. ທາ ບຸນທັນ">ຮສ. ປທ. ທາ ບຸນທັນ</option>
             <option value="ປອ. ວິມົນທາ ຂຽວວົງພະຈັນ">
               ປອ. ວິມົນທາ ຂຽວວົງພະຈັນ
             </option>
             <option value="ປອ. ສະຫວາດ ໄຊປະດິດ">ປອ. ສະຫວາດ ໄຊປະດິດ</option>
+            
           </select>
         </div>
 
         <!-- Co-Advisor Name (English) -->
         <div class="field">
           <label for="coAdvisorEn">Co-Advisor Name (English):</label>
-          <select id="coAdvisorEn">
-            <option value="">-- None --</option>
+          <select id="coAdvisorEn" >
+            <option value="Dr. vinath Mekthanavanh">Dr. Savath Saypadith</option>
             <option value="Tha Bounthanh, M.Eng">Tha Bounthanh, M.Eng</option>
             <option value="Dr. Vimontha Khieovongphachanh">
               Dr. Vimontha Khieovongphachanh
             </option>
             <option value="Dr. Savath Saypadith">Dr. Savath Saypadith</option>
+            <option value="Dr. vinath Mekthanavanh">Dr. Savath Saypadith</option>
           </select>
         </div>
 
@@ -179,6 +216,7 @@
             type="text"
             id="academicYear"
             placeholder="e.g. 2023-2024"
+            value="2024-2025"
             required
           />
         </div>
@@ -203,13 +241,15 @@
     <!-- 3) Logo data (base64) -->
     <script src="./logo_base64.js"></script>
 
+
+    <!--TODO: Change name after develop -->
     <script>
       // We'll reference PDFLib as a global from window.pdfLib or PDFLib
       const { PDFDocument, rgb } = PDFLib; // or window.pdfLib
       const fontkit = window.fontkit;
 
       let studentCount = 0;
-
+      
       function addStudent() {
         studentCount++;
         const studentsArea = document.getElementById("studentsArea");
@@ -217,14 +257,16 @@
         const wrapper = document.createElement("div");
         wrapper.className = "student-fieldset";
         wrapper.innerHTML = `
+    
       <label>Student Name (Lao):</label>
-      <input type="text" id="studentLao_${studentCount}" placeholder="ຊື່ນັກສຶກສາ (ລາວ)" required />
+      
+      <input type="text" id="studentLao_${studentCount}" placeholder="ຊື່ນັກສຶກສາ (ລາວ) " value="ວາດສະໜາ ສຸວັນນະລາດ"  required />
       <label>Student Name (English):</label>
-      <input type="text" id="studentEn_${studentCount}" placeholder="Student Name (English)" required />
+      <input type="text" id="studentEn_${studentCount}" placeholder="Student Name (English)" value="vadsana souvannarth" required />
     `;
         studentsArea.appendChild(wrapper);
       }
-
+      
       // Add one student by default on page load
       window.onload = () => {
         addStudent();
@@ -234,7 +276,10 @@
         // 1) Gather form data
         const titleLao = document.getElementById("titleLao").value.trim();
         const titleEn = document.getElementById("titleEn").value.trim();
-        const majorLao = document.getElementById("majorLao").value.trim();
+        const majorLao = document.getElementById("majorLao").value.trim(); 
+        const FacultyLao = document.getElementById("FacultyLao").value.trim();
+        const DepartmentLao = document.getElementById("DepartmentLao").value.trim();
+        const UniversityLao = document.getElementById("UniversityLao").value.trim(); 
         const majorEn = document.getElementById("majorEn").value.trim();
         const advisorLao = document.getElementById("advisorLao").value.trim();
         const advisorEn = document.getElementById("advisorEn").value.trim();
@@ -275,11 +320,11 @@
         const { width, height } = page.getSize();
 
         // Let's define some basic positions
-        let yPos = height - 100; // start from top (pdf-lib uses bottom-left origin by default)
+        let yPos = height - 70; // start from top (pdf-lib uses bottom-left origin by default)
         const centerX = width / 2;
 
         // (A) Draw the logo in the top-center
-        const imgWidth = 120;
+        const imgWidth = 100;
         const imgHeight = (pngImage.height / pngImage.width) * imgWidth;
         const maxTextWidth = 480;
         page.drawImage(pngImage, {
@@ -288,7 +333,7 @@
           width: imgWidth,
           height: imgHeight,
         });
-        yPos -= imgHeight + 30;
+        yPos -= imgHeight + 50;
 
         // A small helper function to draw centered text
         function drawCenteredText(txt, font, fontSize) {
@@ -362,23 +407,23 @@
 
         // (B) Draw the Thesis Title (Lao)
         drawCenteredText(
-          "ບົດໂຄງການຈົບຊັ້ນລະດັບປະລິນຍາຕີວິສະວະກຳສາດ",
+          "ບົດໂຄງການຈົບຊັ້ນລະດັບປະລິນຍາຕີ",
           laoFont,
           18
         );
-
+        yPos -= 10;
         // (C) Thesis Title (English)
         // drawCenteredText(titleEn, laoFont, 12);
 
         // (D) Major (Lao)
-        drawCenteredText("ສາຂາ " + majorLao, laoFont, 14);
-        yPos -= 25;
+        // drawCenteredText( titleLao, laoFont, 16);
+        // yPos -= 30;
 
         
         // drawCenteredText(titleLao, laoFont, 16);
         drawCenteredMultilineText(
           titleLao,
-          14,
+          16,
           laoFont, // your embedded Lao font
           page,
           centerX,
@@ -392,44 +437,69 @@
 
         // Move down a bit
         yPos -= 60;
-
+        drawCenteredText("ຂຽນໂດຍ:", laoFont, 14);
         // (F) Students
-        const labelFontSize = 12;
-        const textFontSize = 12;
+        const labelFontSize = 14;
+        const textFontSize = 14;
 
         // We'll left-align from a margin
         const leftMargin = 50;
 
         students.forEach((st) => {
-          const line = `${st.la}`;
+          const line = ` ${st.la}`;
+          const lineText = laoFont.widthOfTextAtSize(line, 12);
           page.drawText(line, {
-            x: 220,
+            
+            x: centerX-lineText / 2,
             y: yPos,
-            size: 12,
+            size: 14,
             font: laoFont,
           });
           yPos -= 20;
         });
-        yPos -= 30;
+        yPos -= 60;
 
-        // Advisor
-        page.drawText("ອາຈານທີ່ປຶກສາ:", {
-          x: 180,
-          y: yPos,
+        yPos -= 30;
+        drawCenteredText("ຄະນະ"+FacultyLao, laoFont, 14);
+        yPos -= 10;
+        drawCenteredText("ພາກວິຊາ" + DepartmentLao, laoFont, 14);
+        yPos -= 10;
+        drawCenteredText("ສາຂາ" + majorEn, laoFont, 14)
+        yPos -= 50;
+
+
+
+
+        drawCenteredText("ມະຫາວິທະຍາໄລ" + UniversityLao, laoFont, 14);
+        yPos -= 10;
+        const bottomText = ` ${academicYear}`;
+        const bottomTextWidth = laoFont.widthOfTextAtSize(bottomText, 12);
+        page.drawText(bottomText, {
+          x:centerX - bottomTextWidth / 2,
+          y:yPos,
           size: 12,
           font: laoFont,
-        });
-        yPos -= labelFontSize + 10;
+        }); 
+        // Advisor
+        // page.drawText("ອາຈານທີ່ປຶກສາ:", {
+        
+        //   x: 240,
+        //   y: yPos,
+        //   size: 12,
+        //   font: laoFont,
+        // });
+        // yPos -= labelFontSize + 10;
 
-        if (advisorLao) {
-          page.drawText(advisorLao, {
-            x: 220,
-            y: yPos,
-            size: 12,
-            font: laoFont,
-          });
-          yPos -= 20;
-        }
+        // if (advisorLao) {
+        //   page.drawText(advisorLao, {
+        //     x: 220,
+        //     y: yPos,
+        //     size: 12,
+        //     font: laoFont,
+        //   });
+        //   yPos -= 20;
+        // }
+        
         // if(advisorEn) {
         //   page.drawText(`(English) ${advisorEn}`, {
         //     x: leftMargin + 10,
@@ -441,40 +511,289 @@
         // }
 
         // Co-Advisor
-        if (coAdvisorLao || coAdvisorEn) {
-          // page.drawText("Co-Advisor:", {
-          //   x: leftMargin,
-          //   y: yPos,
-          //   size: labelFontSize,
-          //   font: laoFont
-          // });
-          // yPos -= (labelFontSize + 5);
+        // if (coAdvisorLao || coAdvisorEn) {
+        //   page.drawText("ຜູ້ຊ່ວຍອາຈານທີ່ປຶກສາ:", {
+        //     x: leftMargin +centerX,
+        //     y: yPos,
+        //     size: labelFontSize,
+        //     font: laoFont
+        //   });
+        //   yPos -= (labelFontSize + 5);
 
-          if (coAdvisorLao) {
-            page.drawText(coAdvisorLao, {
-              x: 220,
-              y: yPos,
-              size: 12,
-              font: laoFont,
-            });
-          }
-          // if(coAdvisorEn) {
-          //   page.drawText(`(English) ${coAdvisorEn}`, {
-          //     x: leftMargin + 10,
-          //     y: yPos,
-          //     size: textFontSize,
-          //     font: laoFont,
-          //   });
-          //   yPos -= (textFontSize + 10);
-          // }
-        }
+        //   if (coAdvisorLao) {
+        //     page.drawText(coAdvisorLao, {
+        //       x: 220,
+        //       y: yPos,
+        //       size: 12,
+        //       font: laoFont,
+        //     });
+        //   }
+        //   // if(coAdvisorEn) {
+        //   //   page.drawText(`(English) ${coAdvisorEn}`, {
+        //   //     x: leftMargin + 10,
+        //   //     y: yPos,
+        //   //     size: textFontSize,
+        //   //     font: laoFont,
+        //   //   });
+        //   //   yPos -= (textFontSize + 10);
+        //   // }
+        // }
 
         // Academic Year (centered at bottom)
-        const bottomText = `ສົກສຶກສາ ${academicYear}`;
-        const bottomTextWidth = laoFont.widthOfTextAtSize(bottomText, 12);
-        page.drawText(bottomText, {
-          x: (width - bottomTextWidth) / 2,
-          y: 50,
+        // const bottomText = `ສົກສຶກສາ ${academicYear}`;
+        // const bottomTextWidth = laoFont.widthOfTextAtSize(bottomText, 12);
+        // page.drawText(bottomText, {
+        //   x: (width - bottomTextWidth) / 2,
+        //   y: 50,
+        //   size: 12,
+        //   font: laoFont,
+        // });
+
+        const page2 = pdfDoc.addPage();
+        const { width2, height2 } = page2.getSize();
+
+        // Let's define some basic positions
+        let yPos2 = height - 70;
+
+        const imgWidth2 = 100;
+        const imgHeight2 = (pngImage.height / pngImage.width) * imgWidth2;
+        const maxTextWidth2 = 480;
+        page2.drawImage(pngImage, {
+          x: centerX - imgWidth2 / 2,
+          y: yPos2 - imgHeight2,
+          width: imgWidth2,
+          height: imgHeight2,
+        });
+        yPos2 -= imgHeight2 + 50;
+         // A small helper function to draw centered text
+        function drawCenteredText2(txt, font, fontSize) {
+          const textWidth2 = font.widthOfTextAtSize(txt, fontSize);
+          page2.drawText(txt, {
+            x: centerX - textWidth2 / 2,
+            y: yPos2,
+            size: fontSize,
+            font,
+            color: rgb(0, 0, 0),
+          });
+          yPos2 -= fontSize + 10;
+        }
+        function drawleftText2(txt, font, fontSize) {
+          const textWidth2 = font.widthOfTextAtSize(txt, fontSize);
+          page2.drawText(txt, {
+            x: leftMargin + textWidth2 /3.5,
+            y: yPos2,
+            size: fontSize,
+            font,
+            color: rgb(0, 0, 0),
+          });
+          yPos2 -= fontSize + 10;
+        }
+        // function drawCenteredMultilineText2(
+        //   text,
+        //   fontSize,
+        //   font,
+        //   page,
+        //   centerX,
+        //   yPos,
+        //   maxWidth,
+        //   colorFunc = null
+        // ) {
+        //   // Split text into words
+        //   const words = text.split(" ");
+        //   const lines = [];
+        //   let currentLine = "";
+
+        //   // 1) Word-wrapping logic
+        //   for (let i = 0; i < words.length; i++) {
+        //     const word2 = words[i];
+        //     const testLine2 = currentLine ? currentLine + " " + word : word;
+        //     const testLineWidth2 = font.widthOfTextAtSize(testLine2, fontSize);
+
+        //     if (testLineWidth2 > maxWidth && i > 0) {
+        //       // Push the current line, then start a new line with the word
+        //       lines.push(currentLine);
+        //       currentLine = word;
+        //     } else {
+        //       // Keep adding words to the current line
+        //       currentLine = testLine2;
+        //     }
+        //   }
+        //   // Push any leftover content in currentLine
+        //   if (currentLine) {
+        //     lines2.push(currentLine);
+        //   }
+
+        //   // 2) Draw each line centered
+        //   const lineHeight2 = fontSize + 10; // You can adjust spacing here
+        //   lines2.forEach((line) => {
+        //     // Measure the actual width of this line
+        //     const lineWidth2 = font.widthOfTextAtSize(line, fontSize);
+
+        //     page.drawText(line, {
+        //       x: centerX - lineWidth2 / 2,
+        //       y: yPos2,
+        //       size: fontSize,
+        //       font,
+        //       color: colorFunc || { r: 0, g: 0, b: 0 }, // default is black if not provided
+        //     });
+
+        //     // Move up for next line
+        //     yPos2 -= lineHeight;
+        //   });
+
+        //   // Return the updated y-position so you can keep track if you need more text
+        //   return yPos2;
+        // }
+
+        drawCenteredText2(
+          "ໃບອະນຸມັດບົດໂຄງການຈົບຊັ້ນ",
+          laoFont,
+          18
+        );
+        yPos2 -= 10;
+        drawleftText2(
+          "ຊື່ຫຼັກສູດ:" + " "  + FacultyLao + " " + majorLao   ,
+          laoFont,
+          14
+        );
+        drawleftText2(
+          "ຊື່ຫົວບົດ:"+" " + titleLao ,
+          laoFont,
+          14
+        );
+        // drawleftText2(
+        //   "ຊື່ນັກສຶກສາ:" + student ,
+        //   laoFont,
+        //   14
+        // );
+        students.forEach((st) => {
+          const line2 = `ຊື່ນັກສຶກສາ: ${st.la}`;
+          const lineText2 = laoFont.widthOfTextAtSize(line2, 14);
+          page2.drawText(line2, {
+
+            x: leftMargin + lineText2 / 2.7,
+            y: yPos2,
+            size: 14,
+            font: laoFont,
+          });
+          yPos2 -= 20;
+        });
+        yPos2 -= 10;
+        drawCenteredText2(
+          "ຄະນະ"+ FacultyLao +""+ "ມະຫາວິທະຍາໄລ"+ UniversityLao,
+          laoFont,
+          14
+        );
+        // yPos2 -= 10;
+        drawCenteredText2(
+          advisorLao+" "+  "ອາຈານຜູ້ນຳພາ"  ,
+        
+          laoFont,
+          14
+        );
+        // drawCenteredText2(
+        //    "(ຕຳແໜ່ງວິຊາການ ຊື່ ແລະ ນາມສະກຸນ)",
+
+        //   laoFont,
+        //   14
+        // );
+        drawCenteredText2(
+          coAdvisorLao + " " + "ອາຈານຜູ້ຊ່ວຍນຳພາ",
+
+          laoFont,
+          14
+        );
+        // drawCenteredText2(
+        //   "(ຕຳແໜ່ງວິຊາການ ຊື່ ແລະ ນາມສະກຸນ)",
+
+        //   laoFont,
+        //   14
+        // );
+        drawCenteredText2(
+          "......................................" + " " + "ປະທານກຳມະການປ້ອງກັນບົດ",
+          laoFont,
+          14
+        );
+        drawCenteredText2(
+          "(ຕຳແໜ່ງວິຊາການ ຊື່ ແລະ ນາມສະກຸນ)",
+
+          laoFont,
+          14
+        );
+        drawCenteredText2(
+          ".................................................." + " " + "ກຳມະການປ້ອງກັນບົດ",
+          laoFont,
+          14
+        );
+        drawCenteredText2(
+          "(ຕຳແໜ່ງວິຊາການ ຊື່ ແລະ ນາມສະກຸນ)",
+
+          laoFont,
+          14
+        );
+        drawCenteredText2(
+          "..................................................." + " " + "ກຳມະການປ້ອງກັນບົດ",
+          laoFont,
+          14
+        );
+        drawCenteredText2(
+          "(ຕຳແໜ່ງວິຊາການ ຊື່ ແລະ ນາມສະກຸນ)",
+
+          laoFont,
+          14
+        );
+        drawCenteredText2(
+          "..................................................." + " " + "ກຳມະການປ້ອງກັນບົດ",
+          laoFont,
+          14
+        );
+        drawCenteredText2(
+          "(ຕຳແໜ່ງວິຊາການ ຊື່ ແລະ ນາມສະກຸນ)",
+
+          laoFont,
+          14
+        );
+        drawCenteredText2(
+          "..................................................." + " " + "ກຳມະການປ້ອງກັນບົດ",
+          laoFont,
+          14
+        );
+        drawCenteredText2(
+          "(ຕຳແໜ່ງວິຊາການ ຊື່ ແລະ ນາມສະກຸນ)",
+
+          laoFont,
+          14
+        );
+        drawCenteredText2(
+          "..................................................." + " " + "ກຳມະການປ້ອງກັນບົດ",
+          laoFont,
+          14
+        );
+        drawCenteredText2(
+          "(ຕຳແໜ່ງວິຊາການ ຊື່ ແລະ ນາມສະກຸນ)",
+
+          laoFont,
+          14
+        );
+        
+        // titleLao.forEach((tl) => {
+        //   const line2 = `${tl.la}`;
+        //   const lineText2 = laoFont.widthOfTextAtSize(line, 12);
+        //   page2.drawText(line, {
+
+        //     x: centerX - lineText / 2,
+        //     y: yPos2,
+        //     size: 14,
+        //     font: laoFont,
+        //   });
+        //   yPos2 -= 20;
+        // });
+        // yPos2 -= 60;
+        
+        
+        page2.drawText('ຄະນະບໍດີ', {
+          x: leftMargin + 400 ,
+          y: yPos2,
           size: 12,
           font: laoFont,
         });
