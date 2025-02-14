@@ -798,6 +798,151 @@
           font: laoFont,
         });
 
+
+        const page3 = pdfDoc.addPage();
+        const { width3, height3 } = page3.getSize();
+
+        // Let's define some basic positions
+        let yPos3 = height - 70;
+
+        function drawCenteredText3(txt, font, fontSize) {
+          const textWidth3 = font.widthOfTextAtSize(txt, fontSize);
+          page3.drawText(txt, {
+            x: centerX - textWidth3 / 2,
+            y: yPos3,
+            size: fontSize,
+            font,
+            color: rgb(0, 0, 0),
+          });
+          yPos3 -= fontSize + 10;
+        }
+        
+          drawCenteredText3(
+          "ບົດໂຄງການຈົບຊັ້ນປະລິນຍາຕີ",
+          laoFont,
+          18
+        );
+
+        drawCenteredMultilineText(
+          titleLao,
+          14,
+          laoFont, // your embedded Lao font
+          page3,
+          centerX,
+          yPos3,
+          maxTextWidth,
+          rgb(0, 0, 0) // optional color
+        );
+        
+        // Advisor
+          yPos3 -= labelFontSize + 140;
+          page3.drawText("ຂຽນໂດຍ:", {
+          x: 280,
+          y: yPos3,
+          size: 12,
+          font: laoFont,
+        });
+        yPos3 -= labelFontSize + 10;
+        students.forEach((st) => {
+          const line = `${st.la}`;
+          page3.drawText(line, {
+            x: 250,
+            y: yPos3,
+            size: 12,
+            font: laoFont,
+          });
+          yPos3 -= 20;
+        });
+        yPos3 -= 30;
+    
+        yPos3 -= labelFontSize + 10;
+        page3.drawText("ອາຈານຜູ້ນຳພາ:", {
+          x: 270,
+          y: yPos3,
+          size: 12,
+          font: laoFont,
+        });
+        yPos3 -= labelFontSize + 10;
+
+        if (advisorLao) {
+          page3.drawText(advisorLao, {
+            x: 260,
+            y: yPos3,
+            size: 12,
+            font: laoFont,
+          });
+          yPos3 -= 20;
+        }
+
+        yPos3 -= labelFontSize + 10;
+        page3.drawText("ອາຈານຜູ້ຊ່ວຍນຳພາ:", {
+          x: 260,
+          y: yPos3,
+          size: 12,
+          font: laoFont,
+        });
+        yPos3 -= labelFontSize + 10;
+
+        if (coAdvisorLao) {
+            page3.drawText(coAdvisorLao, {
+              x: 250,
+              y: yPos3,
+              size: 12,
+              font: laoFont,
+            });
+          }  
+          
+          yPos3 -= labelFontSize + 170;
+          drawCenteredText3("ບົດໂຄງການຈົບຊັ້ນລະດັບປະລິນຍາຕີເປັນຜົນງານ",laoFont,
+          12);
+
+        // page3.drawText("ບົດໂຄງການຈົບຊັ້ນລະດັບປະລິນຍາຕີເປັນຜົນງານ "+"\n"+" ການສຶກສາຕາມຫຼັກສູດປະລິນຍາຕີວິສະວະກຳສາດ ສາຂາວິສະວະກຳໄອທີ", {
+        //   x: 200,
+        //   y: yPos3,
+        //   size: 12,
+        //   font: laoFont,
+        // });
+       
+        drawCenteredText3("ການສຶກສາຕາມຫຼັກສູດປະລິນຍາຕີວິສະວະກຳສາດ ສາຂາວິສະວະກຳໄອທີ",laoFont,
+          12);
+
+          
+          drawCenteredText3(
+          "ຄະນະວິສະວະກຳສາດ",
+          laoFont,
+          12
+        );
+
+          yPos3 -= 0;
+          drawCenteredText3(
+          "ມະຫາວິທະຍາໄລສຸພານຸວົງ",
+          laoFont,
+          12
+        );
+
+        // page3.drawText('2025',{
+        //   x:300,
+        //   y:70,
+        //   size: 12,
+        //   font: laoFont,
+        // });
+
+        yPos3 -= 30;
+        const bottomText3 = ` ${academicYear}`;
+        const bottomTextWidth3 = laoFont.widthOfTextAtSize(bottomText3, 12);
+        page3.drawText(bottomText3, {
+          x:centerX - bottomTextWidth3 / 2,
+          y:yPos3,
+          size: 12,
+          font: laoFont,
+        });
+        yPos3-=20;
+          drawCenteredText3(
+          "ລິຂະສິດມະຫາວິທະຍາໄລສຸພານຸວົງ",
+          laoFont,
+          12
+        );
+
         pdfDoc.addPage();
 
         // 6) Serialize to Uint8Array
