@@ -798,6 +798,150 @@
           font: laoFont,
         });
 
+        const page4 = pdfDoc.addPage();
+        const { width4, height4 } = page4.getSize();
+
+        // Let's define some basic positions
+        let yPos4 = height - 100;
+
+
+        function drawCenteredText4(txt, font, fontSize) {
+          const textWidth4 = font.widthOfTextAtSize(txt, fontSize);
+          page4.drawText(txt, {
+            x: centerX - textWidth4 / 2,
+            y: yPos4,
+            size: fontSize,
+            font,
+            color: rgb(0, 0, 0),
+          });
+          yPos4 -= fontSize + 10;
+        }
+
+        drawCenteredText4(
+          "FINAL REPORT",
+          laoFont,
+          18
+        );
+        yPos4-=20;
+
+        drawCenteredText4(
+          titleEn,
+          laoFont,
+          18
+        );
+        yPos4-=40;
+        // page4.drawText('hhhhh',{
+        //   x:120,
+        //   y:yPos4,
+        //   size:14
+        // });
+        const labelFontSize4 = 12;
+        const textFontSize4 = 12;
+
+        // We'll left-align from a margin
+        const leftMargin4 = 50;
+
+        page4.drawText("Written: \n ", {
+          x: centerX,
+          y: yPos4,
+          size: 12,
+          font: laoFont,
+        });
+        yPos4 -= labelFontSize + 10;
+        students.forEach((st) => {
+          const line4 = `${st.en}`;
+          page4.drawText(line4, {
+            x: 250,
+            y: yPos4,
+            size: 12,
+            font: laoFont,
+          });
+          yPos4 -= 20;
+        });
+        yPos4 -= 60;
+
+        page4.drawText("Advisor:", {
+          x: centerX,
+          y: yPos4,
+          size: 12,
+          font: laoFont,
+        });
+        yPos4 -= labelFontSize + 10;
+        if (advisorEn) {
+          page4.drawText(advisorEn, {
+            x: 250,
+            y: yPos4,
+            size: 12,
+            font: laoFont,
+          });
+          yPos4 -= 20;
+        }
+
+        page4.drawText("CoAdvisor:", {
+          x: centerX,
+          y: yPos4,
+          size: 12,
+          font: laoFont,
+        });
+        yPos4 -= labelFontSize + 10;
+        if (coAdvisorEn) {
+          page4.drawText(coAdvisorEn, {
+            x:250,
+            y: yPos4,
+            size: 12,
+            font: laoFont,
+          });
+          yPos4 -= 60;
+        } 
+        drawCenteredText4(
+          "FINAL REPORT SUBMITTED:",
+          laoFont,
+          14
+        );
+        drawCenteredText4(
+          "IN PARTIAL FULFILLMENT OF THE REQUIREMENTS FOR ",
+          laoFont,
+          14
+        );
+        drawCenteredText4(
+          "THE DEGREE OF BACHELOR OF ENGINEERING MAJORING IN  ",
+          laoFont,
+          14
+        );
+         
+        drawCenteredText4(
+          "ELECTRICAL FACULTYOF ENGINEERING ",
+          laoFont,
+          14
+        );
+        drawCenteredText4(
+          "COMPUTER FACULTY OF ENGINEERING ",
+          laoFont,
+          14
+        );
+        yPos4 -= 60;
+      
+
+
+drawCenteredText4(
+          "SOUPHANOUVONG UNIVERSITY  ",
+          laoFont,
+          14
+        );
+        const bottomText4 = ` ${academicYear}`;
+        const bottomTextWidth4 = laoFont.widthOfTextAtSize(bottomText4, 12);
+        page4.drawText(bottomText4, { 
+          x:centerX - bottomTextWidth4 / 2,
+          y:yPos4,
+          size: 12,
+          font: laoFont,
+        });
+        yPos4-=20;
+        drawCenteredText4(
+          "COPYRIGHT © SOUPHANOUVONG UNIVERSITY  ",
+          laoFont,
+          14
+)
         pdfDoc.addPage();
 
         // 6) Serialize to Uint8Array
@@ -822,5 +966,18 @@
       }
     </script>
     <!-- This project was initiated by Dr. Savath Saypadith -->
+
+
+    <!-- cm -->
   </body>
+
+
 </html>
+
+
+
+
+
+
+
+
